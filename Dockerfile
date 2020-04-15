@@ -10,12 +10,13 @@ LABEL MAINTAINER = 'crper@outlook.com(https://github.com/crper)'
 # - 克隆项目
 # - 采用自动化构建不考虑国内npm源了 , 可以降低初始化失败的概率
 # !! yapi 官方的内网部署教程: https://yapi.ymfe.org/devops/index.html
-RUN apk update \
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
+  && apk update \
   && apk add --no-cache  git nodejs npm  bash vim  python python-dev gcc libcurl make\
   && rm -rf /var/cache/apk/* \
   && mkdir /yapi && cd /yapi && git clone https://github.com/YMFE/yapi.git vendors \
-  && npm i -g node-gyp yapi-cli npm@latest \
-  && cd /yapi/vendors && npm i --production;
+  && npm --registry https://registry.npm.taobao.org i -g node-gyp yapi-cli npm@latest \
+  && cd /yapi/vendors && npm --registry https://registry.npm.taobao.org i --production;
 # 工作目录
 WORKDIR /yapi/vendors
 # 配置yapi的配置文件
