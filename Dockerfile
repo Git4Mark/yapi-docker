@@ -1,7 +1,7 @@
 # 基于 alpine镜像构建
 FROM alpine:latest
 # 镜像维护者的信息
-LABEL MAINTAINER = 'crper@outlook.com(https://github.com/crper)'
+LABEL MAINTAINER = '1603932627@qq.com(https://github.com/Git4Mark)'
 # 基础环境构建
 # - 更新源
 # - 安装基础环境包
